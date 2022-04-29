@@ -11,7 +11,7 @@ public class Testing extends TimerTask
 	private String sub;
 	private String body;
 	private String filename;
-	public Testing(String to,String name,String sub,String body,Employee e,String filename) {
+	public Testing(String to,String name,String sub,String body,String filename) {
 		this.to=to;
 		this.name=name;
 		this.sub=sub+" "+this.name;

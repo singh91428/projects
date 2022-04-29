@@ -26,8 +26,6 @@ public class GMailServer extends Authenticator{
     private String user;
     private String password;
     private Session session;
-    private String filename;
-    private String logo="D:\\Javaprograms\\wishmsg\\logo\\logo.png";
     public GMailServer(String user, String password) {
         this.user = user;
         this.password = password;  
@@ -55,6 +53,7 @@ public class GMailServer extends Authenticator{
     
     public synchronized void sendMail(String subject,String name, String body, String sender, String recipients,String filename) throws Exception
     {
+    	String logo="D:\\Javaprograms\\wishmsg\\logo\\logo.png";
         MimeMessage message = new MimeMessage(session);
         DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/html"));
         message.setSender(new InternetAddress(sender));
@@ -66,6 +65,7 @@ public class GMailServer extends Authenticator{
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipients));
         
         
+        //Html Content 
         String htmtbody="<!DOCTYPE html>\r\n"
         		+ "<html lang=\"en\">"
         		+ "<head>"
@@ -94,47 +94,22 @@ public class GMailServer extends Authenticator{
         // add it
         multipart.addBodyPart(messageBodyPart);
 
-        // second part (the image)
+        // adding wish image to html
         messageBodyPart = new MimeBodyPart();
         DataSource fds = new FileDataSource(filename);
-
         messageBodyPart.setDataHandler(new DataHandler(fds));
         messageBodyPart.setHeader("Content-ID", "<image>");
-        // add image to the multipart
         multipart.addBodyPart(messageBodyPart);
         
-        //adding logo
+        //adding foxit logo to html
         messageBodyPart = new MimeBodyPart();
         fds = new FileDataSource(logo);
-
         messageBodyPart.setDataHandler(new DataHandler(fds));
         messageBodyPart.setHeader("Content-ID", "<logo>");
-        // add image to the multipart
         multipart.addBodyPart(messageBodyPart);
 
         // put everything together
         message.setContent(multipart);
-        
-        
-        
-        //====================================
-//        BodyPart messageBodyPart1 = new MimeBodyPart();  
-//        messageBodyPart1.setText(body);
-        
-//        DataSource source = new FileDataSource(filename);  
-//        messageBodyPart1.setDataHandler(new DataHandler(source));
-//        messageBodyPart1.setFileName(filename);
-        
-//        MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-//        DataSource source = new FileDataSource(filename);  
-//        messageBodyPart2.setDataHandler(new DataHandler(source));  
-//        messageBodyPart2.setFileName(filename); 
-//        
-//        Multipart multipart = new MimeMultipart(); 
-//        multipart.addBodyPart(messageBodyPart1);
-//        multipart.addBodyPart(messageBodyPart2);  
-       
-//        message.setContent(multipart );  
         
         Transport.send(message);
     }  

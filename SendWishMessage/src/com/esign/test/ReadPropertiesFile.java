@@ -16,8 +16,7 @@ public class ReadPropertiesFile
 		    Constants.delay = pro.getProperty("delay");
 		    Constants.timetoquery = pro.getProperty("timetoquery");
 		    Constants.setFrom = pro.getProperty("setFrom");
-		    Constants.setPassword = pro.getProperty("setPassword");
-		    Constants.emailTO = pro.getProperty("emailTO");	  		   
+		    Constants.setPassword = pro.getProperty("setPassword");  		   
 		}
 		catch(Exception e)
 		{

@@ -21,14 +21,14 @@ public class DBScheduler
 			int random=RandomTesting.getRandomno();
 			//Testing.setValuesforBirthday(e);
 			String filename="D:\\Javaprograms\\wishmsg\\Birthday\\"+random+".jpg";
-			timer.scheduleAtFixedRate(new Testing(e.getEemail(),e.getEname(),"Happy Birthday",Messages.getBirthdayMessage(), e,filename), getTimePrecision(Constants.delay), getTimePrecision(Constants.timetoquery));	
+			timer.scheduleAtFixedRate(new Testing(e.getEemail(),e.getEname(),"Happy Birthday",Messages.getBirthdayMessage(),filename), getTimePrecision(Constants.delay), getTimePrecision(Constants.timetoquery));	
 		}
 		List<Employee> empanni=EmployeeData.getEmployeeHavingAnniversaryToday();
 		for(Employee e:empanni) {
 			int random=RandomTesting.getRandomno();
 			//Testing.setValuesforAnniversary(e);
 			String filename="D:\\Javaprograms\\wishmsg\\Anniversary\\"+random+".jpg";
-			timer.scheduleAtFixedRate(new Testing(e.getEemail(),e.getEname(),"Happy Anniversary",Messages.getAnniversaryMessage(), e,filename), getTimePrecision(Constants.delay), getTimePrecision(Constants.timetoquery));	
+			timer.scheduleAtFixedRate(new Testing(e.getEemail(),e.getEname(),"Happy Anniversary",Messages.getAnniversaryMessage(),filename), getTimePrecision(Constants.delay), getTimePrecision(Constants.timetoquery));	
 		}
 	}
 

@@ -20,7 +20,7 @@ public class EmployeeData {
 	private static ResultSet rs;
 	private static PreparedStatement ps;
 	
-	//get Employee that having birthday today
+	//get Employees that having birthday today
 	
 	public static List<Employee> getEmployeeHavingDOBToday() {
 		List<Employee> empHavingDob=new ArrayList<Employee>();
@@ -29,7 +29,7 @@ public class EmployeeData {
 		String ndf=sdf.format(date);
 		con=MysqlConnection.getConnection();
 		try {
-			ps=con.prepareStatement("select * from employee where date_format(dob,'%m-%d')=date_format(?,'%m-%d')");
+			ps=con.prepareStatement("select eid,ename,email,dob,annidate,flag from employee where date_format(dob,'%m-%d')=date_format(?,'%m-%d')");
 			ps.setString(1,ndf);
 			rs=ps.executeQuery();
 			while(rs.next()) {
@@ -50,6 +50,8 @@ public class EmployeeData {
 		return empHavingDob;
 	}
 	
+	//get Employees that having anniversary today
+	
 	public static List<Employee> getEmployeeHavingAnniversaryToday() {
 		List<Employee> empHavingAnni=new ArrayList<Employee>();
 		Date date=new Date();
@@ -57,7 +59,7 @@ public class EmployeeData {
 		String ndf=sdf.format(date);
 		con=MysqlConnection.getConnection();
 		try {
-			ps=con.prepareStatement("select * from employee where date_format(annidate,'%m-%d')=date_format(?,'%m-%d')");
+			ps=con.prepareStatement("select eid,ename,email,dob,annidate,flag from employee where date_format(annidate,'%m-%d')=date_format(?,'%m-%d')");
 			ps.setString(1,ndf);
 			rs=ps.executeQuery();
 			while(rs.next()) {
@@ -76,20 +78,5 @@ public class EmployeeData {
 			e2.printStackTrace();
 		}
 		return empHavingAnni;
-	}
-	
-	
-	public static void main(String[] args) {
-		List<Employee> empdob=getEmployeeHavingDOBToday();
-		List<Employee> empanni=getEmployeeHavingAnniversaryToday();
-		
-		for(Employee e:empdob) {
-			System.out.println(e);
-		}
-		System.out.println();
-		for(Employee e:empanni) {
-			System.out.println(e);
-		}
-		
 	}
 }
